@@ -1,5 +1,6 @@
 html {
     font-size: 10px;
+    background-color: grey;
 }
 body {
 margin: 2% 15%;
@@ -10,4 +11,8 @@ canvas {
 vertical-align: top;
 margin: 1rem 1rem;
 border: 2px double black;
+}
+
+div{
+    position:absolute;
 }
