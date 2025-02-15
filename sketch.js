@@ -3,56 +3,53 @@ let startCol, tarCol;
 let startx, starty;
 let divisions;
 
-
 function setup() {
     createCanvas(500, 500);
     background(220);
 
     colorMode(HSB);
     startCol = color(random(360), 75, 80);
-    tarCol = color(random(360), 75, 80);
+    tarCol = color(random(360), 50, 80);
     startx = 50;
     starty = 50;
     divisions = 50;
+
 }
 
 function drawPalette() {
-    // create pallete section
-    fill(255);
-    noStroke();
-    rect(startx, starty , 200, 50);
+
     // Loop division number of times
-    for (let i = 0; i < divisions; i+=4) {
+    for (let i = 0; i < divisions; i+=2) {
         // Gradient
         let gradient = lerpColor(startCol, tarCol, i / divisions);
-        let x = lerp(startx, startx + 200, i / divisions);
+        let x = lerp(startx, startx + 250, i / divisions);
 
         // Draw
-        stroke(gradient);
-        strokeWeight(12);
-        // Draw a vertical lin from up to down
-        line(x, starty, x, starty + 50);
+        fill(gradient);
+        noStroke(10);
+        rect(x, starty, 25, 25); // Draw a rectangle inside the palette div
     }
 }
 
 function drawAnalogousPalette() {
-
-
-    let num = random(360)
-    startCol = color(num, 100, 100);
-    tarCol = color(num + 30, 100, 100);
+    // coordinates
+    startx = 50;
+    starty = 100;
+    // colours
+    startCol = color(35, 75, 100);
+    tarCol = color(100, 75, 100);
 
     // Loop division number of times
-    for (let i = 0; i < divisions; i++) {
+    for (let i = 0; i < divisions; i+=2) {
         // Gradient
         let gradient = lerpColor(startCol, tarCol, i / divisions);
-        let x = lerp(startx, startx + 200, i / divisions);
+        let x = lerp(startx, startx + 250, i / divisions);
 
         // Draw
-        stroke(gradient);
-        strokeWeight(10);
+        fill(gradient);
+        noStroke(10);
         // Draw a vertical line from up to down
-        line(x, starty, x, starty + 50);
+        rect(x,starty, 25, 25);
     }
 }
 

@@ -12,7 +12,13 @@ vertical-align: top;
 margin: 1rem 1rem;
 border: 2px double black;
 }
-
-div{
-    position:absolute;
-}
+/* 
+.palette{
+    position: absolute;
+    top: 50px;
+    left: 50px;
+    width: 200px;
+    height: 50px;
+    background-color: white;
+    border: 2px solid black;
+} */
