@@ -3,22 +3,35 @@ let startCol, tarCol;
 let startx, starty;
 let divisions;
 
+let startHue, tarHue;
+let startHueSlider, tarHueSlider;
+
 function setup() {
     createCanvas(500, 500);
     background(0);
-
     colorMode(HSB);
-    
     divisions = 50;
+    
+    // noLoop();
 
-    noLoop();
+    startHue = 0;
+    tarHue = 0;
 
+    //set up slider
+    startHueSlider = createSlider(0, 360, 0);
+    startHueSlider.position(200, 50);
+    tarHueSlider = createSlider(0, 360, 0);
+    tarHueSlider.position(200, 100);
+
+    //redraw when input
+    startHueSlider.input(() => redraw());
+    tarHueSlider.input(() => redraw());
 }
 
 function drawPalette() {
     // colours
-    startCol = color(random(180), random(100), random(100));
-    tarCol = color(random(360), random(100), random(100));
+    startCol = color(startHue, 100, 100);
+    tarCol = color(tarHue, 100, 75);
 
     //coordinates
     startx = 50;
@@ -31,7 +44,7 @@ function drawPalette() {
 
         // Draw
         fill(gradient);
-        noStroke(10);
+        noStroke();
         rect(x, starty, 25, 25); // Draw a rectangle inside the palette div
     }
 }
@@ -41,8 +54,8 @@ function drawAnalogousPalette() {
     startx = 50;
     starty = 100;
     // colours
-    startCol = color(random(360), 75, 100);
-    tarCol = color(random(360), 75, 100);
+    startCol = color(startHue, 75, 100);
+    tarCol = color(tarHue, 75, 100);
 
     // Loop division number of times
     for (let i = 0; i < divisions; i+=2) {
@@ -52,7 +65,7 @@ function drawAnalogousPalette() {
 
         // Draw
         fill(gradient);
-        noStroke(10);
+        noStroke();
         // Draw a vertical line from up to down
         rect(x,starty, 25, 25);
     }
@@ -64,8 +77,8 @@ function rectPalette() {
     startx = 50;
     starty = 200;
     // colours
-    startCol = color(random(360), random(100), random(100));
-    tarCol = color(random(360), random(100), random(100));
+    startCol = color(startHue, 85, 85 );
+    tarCol = color(tarHue, 85, 95);
 
     // Loop division number of times
     for (let i = 0; i < divisions; i+=7) {
@@ -75,7 +88,7 @@ function rectPalette() {
 
         // Draw
         fill(gradient);
-        noStroke(10);
+        noStroke();
         rect(x, starty, 15, 15); // Draw a rectangle inside the palette div
     }
 }
@@ -85,28 +98,34 @@ function drawMonoPalette() {
     startx = 50;
     starty = 150;
     // colours
-    startCol = color(360, 75, 100);
-    tarCol = color(360, 75, 50);
+    startCol = color(startHue, 75, 100);
+    tarCol = color(startHue, 75, 25);
 
     // Loop division number of times
-    for (let i = 0; i < divisions; i+=2) {
+    for (let i = 0; i < divisions; i+=5) {
         // Gradient
         let gradient = lerpColor(startCol, tarCol, i / divisions);
         let x = lerp(startx, startx + 250, i / divisions);
 
         // Draw
         fill(gradient);
-        noStroke(10);
+        noStroke();
         // Draw a vertical line from up to down
         rect(x,starty, 25, 25);
     }
 }
 
-// draw normal palette function
+// draw function
 function draw() {
+    //make sure the bg is reset
+    background(0);    
 
     drawPalette();
     drawAnalogousPalette(); 
     drawMonoPalette();
     rectPalette();
+
+    //set hue to slider value
+    startHue = startHueSlider.value();
+    tarHue = tarHueSlider.value();
 }
