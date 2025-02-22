@@ -10,7 +10,7 @@ font-family: Arial, Helvetica, sans-serif;
 canvas {
 vertical-align: top;
 margin: 1rem 1rem;
-border: 2px double black;
+/* border: 2px double black; */
 }
 /* 
 .palette{

@@ -19,9 +19,9 @@ function setup() {
 
     //set up slider
     startHueSlider = createSlider(0, 360, 0);
-    startHueSlider.position(200, 50);
+    startHueSlider.position(450, 200);
     tarHueSlider = createSlider(0, 360, 0);
-    tarHueSlider.position(200, 100);
+    tarHueSlider.position(450, 250);
 
     //redraw when input
     startHueSlider.input(() => redraw());
@@ -47,6 +47,11 @@ function drawPalette() {
         noStroke();
         rect(x, starty, 25, 25); // Draw a rectangle inside the palette div
     }
+
+    // Add text
+    fill(255); // White text color
+    textSize(16); // Text size
+    text("Normal Palette", startx, starty - 10); // Text label
 }
 
 function drawAnalogousPalette() {
@@ -69,6 +74,11 @@ function drawAnalogousPalette() {
         // Draw a vertical line from up to down
         rect(x,starty, 25, 25);
     }
+    
+    // Add text
+    fill(255); // White text color
+    textSize(16); // Text size
+    text("Analogous Palette", startx, starty - 10); // Text label
 }
 
 function rectPalette() {
@@ -91,6 +101,11 @@ function rectPalette() {
         noStroke();
         rect(x, starty, 15, 15); // Draw a rectangle inside the palette div
     }
+
+    // Add text
+    fill(255); // White text color
+    textSize(16); // Text size
+    text("Spaced Rectangle Palette", startx, starty - 10); // Text label
 }
 
 function drawMonoPalette() {
@@ -113,6 +128,39 @@ function drawMonoPalette() {
         // Draw a vertical line from up to down
         rect(x,starty, 25, 25);
     }
+
+    // Add text
+    fill(255); // White text color
+    textSize(16); // Text size
+    text("Monochrome Palette", startx, starty - 10); // Text label
+}
+
+function drawLogPalette() {
+    // colours
+    startCol = color(startHue, 100, 100);
+    tarCol = color(tarHue, 100, 75);
+
+    //coordinates
+    startx = 50;
+    starty = 300;
+    // Loop division number of times
+    for (let i = 0; i < divisions; i+=2) {
+        // Logarithmic interpolation
+        let t = log(i / divisions + 1) / log(2); // Map i to a value between 0 and 1 using logarithm
+        let gradient = lerpColor(startCol, tarCol, t);
+
+        let x = lerp(startx, startx + 250, i / divisions);
+
+        // Draw
+        fill(gradient);
+        noStroke();
+        rect(x, starty, 25, 25); // Draw a rectangle inside the palette div
+    }
+
+    // Add text
+    fill(255); // White text color
+    textSize(16); // Text size
+    text("Logarithmic Palette", startx, starty - 10); // Text label
 }
 
 // draw function
@@ -124,6 +172,7 @@ function draw() {
     drawAnalogousPalette(); 
     drawMonoPalette();
     rectPalette();
+    drawLogPalette();
 
     //set hue to slider value
     startHue = startHueSlider.value();
